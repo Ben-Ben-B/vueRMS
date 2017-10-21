@@ -94,6 +94,6 @@
 </script>
 <style scoped>
     .layout.menu {
-        min-height: 650px;
+        min-height: 580px;
     }
 </style>
