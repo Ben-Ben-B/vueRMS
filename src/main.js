@@ -32,8 +32,15 @@ var router = new vueRouter({
     ]
 });
 axios.defaults.baseURL = 'http://157.122.54.189:9095';
+//保存cookie
+axios.defaults.withCredentials = true;
 Vue.prototype.$http = axios;
 // Vue.use(axios);
+//全局守卫
+router.beforeEach((to, form, next) => {
+    next();
+});
+
 // 4.0 定义共有过滤器(全局过滤器)来实现日期字符串的格式化操作
 Vue.filter('datefmt', (input, fmtstring) => {
     var mydate = new Date(input);

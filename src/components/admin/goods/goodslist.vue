@@ -78,7 +78,7 @@
 </el-row>
 <el-row>
     <el-col :span='24'>
-        <el-pagination @size-change="sizeChange" @current-change="changePage" :current-page="currentPage" :page-sizes="[10, 20, 30, 50,100,200]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total" align="left" class='marTop'>
+        <el-pagination @size-change="sizeChange" @current-change="changePage" :current-page="currentPage" :page-sizes="[5,10, 20, 30, 50,100,200]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total" align="left" class='marTop'>
         </el-pagination>
     </el-col>
 </el-row>
@@ -93,8 +93,8 @@
                 searchValue: '',
                 list: [],
                 ids: '',
-                total: '',
-                pageSize: 10,
+                total: 0,
+                pageSize: 5,
                 currentPage: 1
             }
         },
@@ -103,7 +103,8 @@
         },
         methods: {
             changePage(pageIndex) {
-                this.currentPage
+                this.currentPage = pageIndex;
+                this.getlist();
             },
             sizeChange(currentSize) {
                 this.pageSize = currentSize;
@@ -120,7 +121,7 @@
                 }
             },
             getlist() {
-                var url = `/admin/goods/getlist?pageIndex=1&pageSize=10&searchvalue=${this.searchValue}`;
+                var url = `/admin/goods/getlist?pageIndex=${this.currentPage}&pageSize=${ this.pageSize}&searchvalue=${this.searchValue}`;
                 this.$http.get(url).then(res => {
                     // 判断服务器返回的状态status
                     if (res.data.status == 1) {
